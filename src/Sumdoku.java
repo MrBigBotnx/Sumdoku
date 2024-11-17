@@ -1,6 +1,6 @@
 import java.util.Scanner;
 /*
-*
+* N: 58838
 * @author: Inalcidio Abdul Gulamo Lampeao
 * */
 public class Sumdoku {
@@ -24,7 +24,7 @@ public class Sumdoku {
         return ((square - 1) % gridSize) + 1;
     }
 
-    // Funcao isValidPuzzle variante para verificar se uma grid e valida para formar um
+    // Funcao isValidPuzzle variante para verificar se uma grid e valida para formar um puzzle
     public static boolean isValidForPuzzle(SumdokuGrid grid) {
         if (grid == null) {
             return false;
@@ -49,7 +49,7 @@ public class Sumdoku {
 
         int size = groups.gridSize();
 
-        // Cada casa deve pertencer a algum grupo
+        // Cada square deve pertencer a algum grupo
         for (int row = 1; row <= size; row++) {
             for (int column = 1; column <= size; column++) {
                 if (groups.groupOfSquare(row, column) == 0) {
@@ -78,7 +78,7 @@ public class Sumdoku {
         return result;
     }
 
-    // Metodo auxiliar para obtem uma coluna do grid
+    // Metodo auxiliar para obter uma coluna do grid
     private static int[] getColumn(SumdokuGrid grid, int col) {
         int size = grid.size();
         int[] result = new int[size];
@@ -184,7 +184,7 @@ public class Sumdoku {
         return groups;
     }
 
-    // Função puzzleSolved
+    // Funcao puzzleSolved
     public static boolean puzzleSolved(SumdokuGrid playedGrid, SumdokuGrid grid) {
         int size = grid.size();
 
@@ -202,7 +202,7 @@ public class Sumdoku {
     // Procedimento play
     public static void play(SumdokuGrid grid, GridGroups groups, int maxAttempts, Scanner scanner) {
         SumdokuGrid playedGrid = new SumdokuGrid(grid.size());
-        System.out.println("Starting Sumdoku Game!");
+        System.out.println("Bem vindo ao jogo Sumdoku!");
         System.out.println(grid);
 
         int attempts = 0;
@@ -227,5 +227,22 @@ public class Sumdoku {
         }
 
         System.out.println("Game over! You reached the maximum number of attempts.");
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter grid size (3-9): ");
+        int size = scanner.nextInt();
+
+        SumdokuGrid grid = readGrid(size, scanner);
+        GridGroups groups = readGroups(size, scanner);
+
+        System.out.println("Puzzle clues:");
+        System.out.println(cluesToString(grid, groups));
+
+        System.out.print("Introduza o numero maximo de tentativas");
+        int maxAttempts = scanner.nextInt();
+
+        play(grid, groups, maxAttempts, scanner);
     }
 }
