@@ -142,7 +142,7 @@ public class Sumdoku {
                 }
             }
 
-            result.append(String.format("Group %d: Sum = %d\n", group, groupSum));
+            result.append(String.format("G %d: soma = %d\n", group, groupSum));
         }
 
         return result.toString();
@@ -154,7 +154,7 @@ public class Sumdoku {
 
         for (int row = 1; row <= size; row++) {
             for (int column = 1; column <= size; column++) {
-                System.out.printf("Enter value for cell (%d, %d): ", row, column);
+                System.out.printf("Digite valor para a casa (%d, %d): ", row, column);
                 int value = scanner.nextInt();
                 grid.fill(row, column, value);
             }
@@ -165,16 +165,16 @@ public class Sumdoku {
 
     // Procedimento readGroups
     public static GridGroups readGroups(int size, Scanner scanner) {
-        System.out.print("Enter number of groups: ");
+        System.out.print("Digite o numero de grupos: ");
         int numberOfGroups = scanner.nextInt();
         GridGroups groups = new GridGroups(size, numberOfGroups);
 
         for (int group = 1; group <= numberOfGroups; group++) {
-            System.out.printf("Enter number of cells in group %d: ", group);
+            System.out.printf("Digite o numero de elementos para o G %d: ", group);
             int cellsInGroup = scanner.nextInt();
 
             for (int i = 0; i < cellsInGroup; i++) {
-                System.out.printf("Enter row and column for cell %d in group %d: ", i + 1, group);
+                System.out.printf("Digite a linha e coluna da casa %d no G %d: ", i + 1, group);
                 int row = scanner.nextInt();
                 int column = scanner.nextInt();
                 groups.addSquareToGroup(row, column, group);
@@ -207,8 +207,8 @@ public class Sumdoku {
 
         int attempts = 0;
         while (attempts < maxAttempts) {
-            System.out.printf("Attempt %d/%d\n", attempts + 1, maxAttempts);
-            System.out.print("Enter row, column, and value (e.g., 1 2 3): ");
+            System.out.printf("Tentativas %d/%d\n", attempts + 1, maxAttempts);
+            System.out.print("Digite valores de: linha, coluna, e valor (ex., 1 2 3): ");
             int row = scanner.nextInt();
             int column = scanner.nextInt();
             int value = scanner.nextInt();
@@ -216,28 +216,28 @@ public class Sumdoku {
             playedGrid.fill(row, column, value);
 
             if (puzzleSolved(playedGrid, grid)) {
-                System.out.println("Congratulations! You solved the puzzle!");
+                System.out.println("Parabens! Resolveste o puzzle!");
                 return;
             }
 
-            System.out.println("Current grid:");
+            System.out.println("Grelha atual:");
             System.out.println(playedGrid);
 
             attempts++;
         }
 
-        System.out.println("Game over! You reached the maximum number of attempts.");
+        System.out.println("Acabou o jogo! Atingiste o numero maximo de tentativas.");
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter grid size (3-9): ");
+        System.out.print("Digite o tamanho da grelha (3-9): ");
         int size = scanner.nextInt();
 
         SumdokuGrid grid = readGrid(size, scanner);
         GridGroups groups = readGroups(size, scanner);
 
-        System.out.println("Puzzle clues:");
+        System.out.println("Dicas do puzzle:");
         System.out.println(cluesToString(grid, groups));
 
         System.out.print("Introduza o numero maximo de tentativas");
